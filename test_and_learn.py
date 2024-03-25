@@ -2,12 +2,14 @@ import nltk
 from nltk.tokenize import word_tokenize
 import pandas as pd
 import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
 
 #nltk.download('punkt')
 
 sentences = ['I bought a pear',
              'I eat a banana',
              'I ate a banana',
+             'I ate a pear',
              'I carry a banana',
              'He ate a pear',
              'He bought a banana',
@@ -49,4 +51,7 @@ for i in range(0,vocab_size):
     word_co_occurances[i,i] = 0
     
 word_co_occurances_df = pd.DataFrame(word_co_occurances, index = vocab, columns = vocab)
-print (word_co_occurances_df)
+#print (word_co_occurances_df)
+
+cosine_similarity_df = pd.DataFrame(cosine_similarity(word_co_occurances_df), index = vocab, columns = vocab)
+print(cosine_similarity_df)
